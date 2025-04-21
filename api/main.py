@@ -2,12 +2,12 @@ from fastapi import FastAPI
 from pydantic import BaseModel, Field
 import joblib # type: ignore
 import numpy as np
-
+import os
 app = FastAPI()
 
-# Cargar modelo entrenado
-model = joblib.load("models/model.pkl")
 
+model_path = os.path.join(os.path.dirname(__file__), "models", "model.pkl")
+model = joblib.load(model_path)
 
 class DiabetesInput(BaseModel):
     Pregnancies: int = Field(..., ge=0, le=20, description="Número de embarazos")
